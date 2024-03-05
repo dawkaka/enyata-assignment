@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Home } from "./pages/Home";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { Home } from "./pages/Home";
 import "./index.css";
+import { ListAll } from "./pages/ListAll";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/all",
-    element: <h3>Hello</h3>,
+    element: <ListAll />,
   },
 ]);
 
