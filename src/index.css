@@ -4,6 +4,11 @@
 
 
 
+.pink-theme {
+   --primary-color: #E85382;
+}
+
+
 body {
-   font-family: 'ClashDisplay-Variable';
+   font-family: 'GeneralSans-Variable';
 }

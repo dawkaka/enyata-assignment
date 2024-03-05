@@ -1,14 +1,25 @@
 import { useState } from "react";
+import { Home } from "./pages/Home";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/all",
+    element: <h3>Hello</h3>,
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      </div>
-    </>
+    <div className="w-full h-full">
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
