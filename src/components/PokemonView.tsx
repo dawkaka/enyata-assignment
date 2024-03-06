@@ -40,8 +40,14 @@ export function ViewPokemon({
   const lightRGB = `rgb(${light[0]}, ${light[1]}, ${light[2]})`;
   const darkRGB = `rgb(${dark[0]}, ${dark[1]}, ${dark[2]})`;
   return (
-    <div className="fixed inset-0 z-[99] bg-gray-400 bg-opacity-70">
-      <main className="h-full w-full md:w-1/2 lg:w-1/4 ml-auto bg-white overflow-y-auto">
+    <div
+      className="fixed inset-0 z-[99] bg-gray-400 bg-opacity-70"
+      onClick={closeModal}
+    >
+      <main
+        className="h-full w-full md:w-1/2 lg:w-1/4 ml-auto bg-white overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         {isPending ? (
           <p>Loading...</p>
         ) : (
@@ -214,8 +220,9 @@ function Similar({ type }: { type: string }) {
     <div className="flex gap-2 px-10">
       {data.pokemon
         .slice(0, 2)
-        .map(({ pokemon }: { pokemon: { name: string } }) => {
-          return <PokemonCard name={pokemon.name} key={pokemon.name} />;
+        .map(({ pokemon }: { pokemon: { name: string; url: string } }) => {
+          const id = pokemon.url.split("/")[6];
+          return <PokemonCard name={pokemon.name} key={pokemon.name} id={id} />;
         })}
     </div>
   );

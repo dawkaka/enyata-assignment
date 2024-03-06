@@ -71,11 +71,19 @@ export function ListAll() {
         <ViewPokemon name={view} closeModal={() => setView(undefined)} />
       )}
       <main className="w-full h-full bg-gray-200 bg-opacity-30">
-        <div className="p-10 grid grid-cols-4 gap-6 mx-auto max-w-[1100px]">
+        <div className="p-10 grid grid-cols-4 gap-12 mx-auto max-w-[1100px]">
           {isPending && <p>Loading...</p>}
           {pages[currentPage - 1] &&
             pages[currentPage - 1].map((pokemon) => {
-              return <PokemonCard name={pokemon.name} key={pokemon.name} />;
+              const id = pokemon.url.split("/")[6];
+              return (
+                <PokemonCard
+                  name={pokemon.name}
+                  key={pokemon.name}
+                  id={id}
+                  handleView={(name: string) => setView(name)}
+                />
+              );
             })}
         </div>
       </main>

@@ -3,15 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../constants";
 interface PokemonCardT {
   name: string;
+  id: string;
   handleView?: (name: string) => void;
 }
 
-export function PokemonCard({ name, handleView }: PokemonCardT) {
+export function PokemonCard({ name, id, handleView }: PokemonCardT) {
   return (
     <article className="relative group  w-full rounded-xl p-2 h-max bg-white">
       <div className="rounded-lg bg-gray-200 w-full aspect-[3/1.8]">
         <img
-          src="./poke.png"
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
           className="absolute -mt-[10%] left-1/2 -translate-x-1/2 w-2/3"
         />
       </div>
@@ -20,7 +21,7 @@ export function PokemonCard({ name, handleView }: PokemonCardT) {
       </h3>
       {handleView && <PokemonTypes name={name} />}
       {handleView && (
-        <div className="mx-2 my-4 hidden group-hover:block">
+        <div className="absolute w-full left-0 bottom-[-42px] rounded-b-xl p-2 bg-white  z-50 hidden group-hover:block">
           <button
             className="flex w-full items-center rounded-[12px] bg-[var(--primary-color)] text-white px-4 py-2 justify-between"
             onClick={() => handleView(name)}
