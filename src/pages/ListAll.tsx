@@ -171,13 +171,13 @@ function Pagination({
   const { leftPages, middlePages, rightPages } = useMemo(() => {
     const l = currentPage > 4 ? [1] : [1, 2, 3, 4];
     const m =
-      currentPage < 4
+      currentPage <= 4
         ? []
         : currentPage + 3 >= numPages
         ? []
         : [currentPage - 1, currentPage, currentPage + 1];
     const r =
-      currentPage + 4 < numPages
+      currentPage + 3 < numPages
         ? [numPages]
         : [numPages - 3, numPages - 2, numPages - 1, numPages];
     return { leftPages: l, middlePages: m, rightPages: r };
