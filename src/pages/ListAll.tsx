@@ -29,6 +29,12 @@ export function ListAll() {
     }
   }, [data, numPerPage]);
 
+  function handleNumPerPage(option: NumPerPage) {
+    const inView = (currentPage - 1) * numPerPage;
+    setNumPerPage(option);
+    setCurrentPage(Math.floor(inView / option) + 1);
+  }
+
   if (error) {
     return <p className="text-red-500 text-sm">Something went wrong</p>;
   }
@@ -100,7 +106,7 @@ export function ListAll() {
               currentPage={currentPage}
               onChanged={(page: number) => setCurrentPage(page)}
             />
-            <CustomSelect onChanged={(option) => setNumPerPage(option)} />
+            <CustomSelect onChanged={(option) => handleNumPerPage(option)} />
           </div>
         </div>
       </main>
