@@ -11,6 +11,7 @@ export function ListAll() {
   const [numPerPage, setNumPerPage] = useState<NumPerPage>(8);
   const [pages, setPages] = useState<{ name: string; url: string }[][]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showThemeModal, setShowThemeModal] = useState(false);
   const { isPending, error, data } = useQuery({
     queryKey: ["view", name],
     queryFn: () =>
@@ -19,13 +20,11 @@ export function ListAll() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       let pokemons = data.results;
       const result = [];
       for (let i = 0; i < pokemons.length; i += numPerPage) {
         result.push(pokemons.slice(i, i + numPerPage));
       }
-      console.log(result);
       setPages(result);
     }
   }, [data, numPerPage]);
@@ -66,7 +65,13 @@ export function ListAll() {
               className="w-[400px] pl-10 text-xl shadow-md rounded-full border border-[#E1E1E1] outline-none bg-transparent py-2"
             />
           </div>
-          <button className="rounded-full h-[45px] w-[45px] z-50 outline-1 outline outline-[#868686] border-[4px] border-white bg-[var(--primary-color)] p-1"></button>
+          <button
+            onClick={() => setShowThemeModal(true)}
+            className="rounded-full h-[45px] w-[45px] z-50 outline-1 outline outline-[#868686] border-[4px] border-white bg-[var(--primary-color)] p-1"
+          ></button>
+          {showThemeModal && (
+            <ThemeModal closeModal={() => setShowThemeModal(false)} />
+          )}
         </nav>
       </header>
       {view && (
@@ -192,6 +197,7 @@ function Pagination({
       {leftPages.map((page) => {
         return (
           <button
+            key={page}
             className={`rounded ${
               currentPage === page
                 ? "bg-[var(--primary-color)] text-white "
@@ -207,6 +213,7 @@ function Pagination({
       {middlePages.map((page) => {
         return (
           <button
+            key={page}
             className={`rounded ${
               currentPage === page
                 ? "bg-[var(--primary-color)] text-white "
@@ -222,6 +229,7 @@ function Pagination({
       {rightPages.map((page) => {
         return (
           <button
+            key={page}
             className={`rounded ${
               currentPage === page
                 ? "bg-[var(--primary-color)] text-white "
@@ -260,5 +268,63 @@ function PrevSVG() {
         fill="black"
       />
     </svg>
+  );
+}
+
+function ThemeModal({ closeModal }: { closeModal: () => void }) {
+  const handleThemeChange = (cls: `${"yellow" | "blue" | "pink"}-theme`) => {
+    document.body.className = cls;
+    closeModal();
+  };
+  const [theme, setTheme] = useState("pink-theme");
+  useEffect(() => {
+    const cls = document.querySelector("body")?.className;
+    if (cls) {
+      setTheme(cls);
+    }
+  }, []);
+  return (
+    <div
+      className="fixed flex justify-center items-center inset-0  bg-[rgba(39, 39, 39, 0.5)] backdrop-blur-sm z-50"
+      onClick={closeModal}
+    >
+      <div
+        className="relative min-w-0 w-96 h-44 bg-gray-100 rounded-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="absolute top-0 left-0 z-0 h-full w-full bg-[url('./noise.png')] opacity-[0.06]"></div>
+        <div className="absolute top-0 left-0  z-1 w-full h-full">
+          <div className="w-full bg-white px-4 py-2 text-2xl text-center font-semibold font-[ClashDisplay-Variable]">
+            Choose Theme
+          </div>
+          <div className="w-full px-2 py-8 flex justify-center gap-4 [&>button]:h-14 [&>button]:w-14">
+            <button
+              onClick={() => handleThemeChange("pink-theme")}
+              className={`rounded-full  bg-[#E85382] p-1 ${
+                theme === "pink-theme"
+                  ? "outline-1 outline outline-[#868686] border-[4px] border-white"
+                  : ""
+              }`}
+            ></button>
+            <button
+              onClick={() => handleThemeChange("blue-theme")}
+              className={`rounded-full bg-[#39BADF] p-1 ${
+                theme === "blue-theme"
+                  ? "outline-1 outline outline-[#868686] border-[4px] border-white"
+                  : ""
+              }`}
+            ></button>
+            <button
+              onClick={() => handleThemeChange("yellow-theme")}
+              className={`rounded-full bg-[#E1A725] p-1 ${
+                theme === "yellow-theme"
+                  ? "outline-1 outline outline-[#868686] border-[4px] border-white"
+                  : ""
+              }`}
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
