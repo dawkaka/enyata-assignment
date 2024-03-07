@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { BASE_URL } from "../constants";
+import { BASE_URL, TYPE_EMOJI_MAP } from "../constants";
 interface PokemonCardT {
   name: string;
   id: string;
@@ -68,10 +68,11 @@ export function PokemonTypes({ name }: { name: string }) {
   );
 }
 
-function PokemonType({ type }: { type: string }) {
+function PokemonType({ type }: { type: keyof typeof TYPE_EMOJI_MAP }) {
+  const emoji = TYPE_EMOJI_MAP[type] || "❓";
   return (
-    <div className="rounded-full bg-gray-200 flex items-center text-sm px-2 py-[2px]">
-      <span>❤️‍🔥</span>
+    <div className="rounded-full bg-gray-300 flex gap-2 items-center text-sm px-2 py-[2px]">
+      <span className="text-sm">{emoji}</span>
       <span className="capitalize">{type}</span>
     </div>
   );
