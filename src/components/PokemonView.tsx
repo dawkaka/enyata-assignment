@@ -47,7 +47,7 @@ export function ViewPokemon({
       onClick={closeModal}
     >
       <main
-        className="h-full min-w-0 w-[400px] md:w-1/2 lg:w-1/4 ml-auto bg-white overflow-y-auto"
+        className="h-full min-w-0 w-[min(400px,100vw)] lg:w-1/4 ml-auto bg-white overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {isPending ? (
@@ -80,7 +80,7 @@ export function ViewPokemon({
                 </button>
                 <img
                   src={data.sprites.other.dream_world.front_default}
-                  className="absolute top-[15%] w-1/2 left-1/2 -translate-x-1/2"
+                  className="absolute top-[15%] h-[100%] left-1/2 -translate-x-1/2"
                 />
               </div>
             </div>

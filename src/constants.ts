@@ -1,13 +1,13 @@
 export const BASE_URL = "https://pokeapi.co/api/v2"
 
 export const TYPE_EMOJI_MAP = {
-    "normal": "🟦",
+    "normal": "🐻",
     "fighting": "🥊",
     "flying": "🦋",
     "poison": "☠️",
     "ground": "🏜️",
     "rock": "🪨",
-    "bug": "🐛",
+    "bug": "🐞",
     "ghost": "👻",
     "steel": "⚙️",
     "fire": "🔥",
