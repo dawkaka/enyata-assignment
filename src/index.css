@@ -17,3 +17,6 @@
 body {
    font-family: 'GeneralSans-Variable';
 }
+* {
+   min-width: 0;
+}

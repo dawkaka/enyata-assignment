@@ -47,7 +47,7 @@ export function ViewPokemon({
       onClick={closeModal}
     >
       <main
-        className="h-full w-full md:w-1/2 lg:w-1/4 ml-auto bg-white overflow-y-auto"
+        className="h-full min-w-0 w-[400px] md:w-1/2 lg:w-1/4 ml-auto bg-white overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {isPending ? (
@@ -80,7 +80,7 @@ export function ViewPokemon({
                 </button>
                 <img
                   src={data.sprites.other.dream_world.front_default}
-                  className="absolute top-[15%] w-3/4 md:w-2/3 lg:w-1/2 left-1/2 -translate-x-1/2"
+                  className="absolute top-[15%] w-1/2 left-1/2 -translate-x-1/2"
                 />
               </div>
             </div>
@@ -117,7 +117,7 @@ export function ViewPokemon({
             </div>
 
             <div className="w-full flex justify-center mt-auto">
-              <nav className="bg-gray-300 px-4 py-2 w-[328px] rounded-full text-black flex items-center gap-4 [&>*]:w-24 [&>*]:rounded-full [&>*]:text-center [&>*]:py-2">
+              <nav className="bg-gray-300 px-4 py-2 rounded-full text-black flex items-center gap-4 [&>*]:w-24 [&>*]:rounded-full [&>*]:text-center [&>*]:py-2">
                 <button
                   onClick={() => setCurrentTab("About")}
                   className={currentTab === "About" ? "bg-white" : ""}
@@ -223,7 +223,6 @@ function Similar({ types, current }: { current: string; types: PokeType[] }) {
   const result = useQueries({ queries });
   const [similar, setSimilar] = useState([]);
   useEffect(() => {
-    console.log(result);
     const values = result
       .filter((r) => r.data)
       .map((r) => r.data.pokemon.map((p: any) => p.pokemon));

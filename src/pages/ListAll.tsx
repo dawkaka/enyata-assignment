@@ -46,7 +46,7 @@ export function ListAll() {
         <nav className="flex items-center justify-between py-2 px-4 z-[999] overflow-y-visible h-20 max-w-[1300px] mx-auto">
           <div className="flex gap-1 items-center z-50">
             <img src="./home_image.png" className="w-28 mt-6" />
-            <h4 className="font-bold text-3xl font-[ClashDisplay-Variable]">
+            <h4 className="font-bold text-3xl hidden sm:block font-[ClashDisplay-Variable]">
               Poké <span className="text-[var(--primary-color)]">book</span>
             </h4>
           </div>
@@ -68,7 +68,7 @@ export function ListAll() {
             <input
               type="text"
               placeholder="Enter pokemon name"
-              className="w-[400px] pl-10 text-xl shadow-md rounded-full border border-[#E1E1E1] outline-none bg-transparent py-2"
+              className="min-w-0 w-[min(500px,50vw)] pl-10 text-xl shadow-md rounded-full border border-[#E1E1E1] outline-none bg-transparent py-2"
             />
           </div>
           <button
@@ -86,7 +86,7 @@ export function ListAll() {
       <main className="absolute top-20 left-0 py-6 w-full h-[calc(100%-80px)] pb-20 bg-gray-200 bg-opacity-30 overflow-y-auto z-1">
         <div className="p-10 max-w-[1100px] mx-auto h-full">
           {isPending && <p>Loading...</p>}
-          <div className="grid grid-cols-4 gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
             {pages[currentPage - 1] &&
               pages[currentPage - 1].map((pokemon) => {
                 const id = pokemon.url.split("/")[6];
@@ -100,7 +100,7 @@ export function ListAll() {
                 );
               })}
           </div>
-          <div className="flex justify-between mt-16 pb-32">
+          <div className="flex flex-col sm:flex-row gap-8 sm:justify-between mt-16 pb-32">
             <Pagination
               numPages={pages.length}
               currentPage={currentPage}

@@ -15,7 +15,7 @@ export function PokemonCard({ name, id, handleView }: PokemonCardT) {
       <div className="rounded-lg bg-gray-200 w-full aspect-[3/1.8]">
         <img
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
-          className="absolute -mt-[10%] left-1/2 -translate-x-1/2 w-2/3"
+          className="absolute -mt-[10%] left-1/2 -translate-x-1/2 h-1/2"
         />
       </div>
       <h3 className="font-[ClashDisplay-Variable] text-2xl mt-4 text-center capitalize">
@@ -63,10 +63,12 @@ export function PokemonTypes({
   const [types, setTypes] = useState<(keyof typeof TYPE_EMOJI_MAP)[]>([]);
 
   useEffect(() => {
-    const types = data.types.map((type: any) => type.type.name);
-    setTypes(types);
-    if (liftTypes) {
-      liftTypes(types);
+    if (data) {
+      const types = data.types.map((type: any) => type.type.name);
+      setTypes(types);
+      if (liftTypes) {
+        liftTypes(types);
+      }
     }
   }, [data]);
 
