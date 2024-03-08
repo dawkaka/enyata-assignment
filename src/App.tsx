@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Home } from "./pages/Home";
 import "./index.css";
-import { ListAll } from "./pages/ListView.tsx";
+import { ListAll } from "./pages/ListAll.tsx";
 
 const router = createBrowserRouter([
   {
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/all",
+    path: "/list-view",
     element: <ListAll />,
   },
 ]);

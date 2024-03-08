@@ -21,12 +21,15 @@ export function Home() {
             className="w-[400px] text-2xl px-6 py-4 bg-transparent outline-none"
             placeholder="Enter pokemon name"
           />
-          <span className="h-12 w-12 top-1/2 -translate-y-1/2 flex justify-center items-center absolute right-4 bg-[var(--primary-color)] rounded-full">
+          <Link
+            to={"/list-view"}
+            className="h-12 w-12 top-1/2 -translate-y-1/2 flex justify-center items-center absolute right-4 bg-[var(--primary-color)] rounded-full"
+          >
             <img src="./search.svg" className="h-5 w-5" />
-          </span>
+          </Link>
         </div>
         <div className="w-full z-10 text-center">
-          <Link to={"/all"} className="underline">
+          <Link to={"/list-view"} className="underline">
             View all
           </Link>
         </div>
