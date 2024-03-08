@@ -15,7 +15,7 @@ export function PokemonCard({ name, id, handleView }: PokemonCardT) {
       <div className="rounded-lg bg-gray-200 w-full aspect-[3/1.8]">
         <img
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
-          className="absolute -mt-[10%] left-1/2 -translate-x-1/2 h-1/2"
+          className="absolute -mt-[10%] left-1/2 -translate-x-1/2 h-[55%]"
         />
       </div>
       <h3 className="font-[ClashDisplay-Variable] text-2xl mt-4 text-center capitalize">
@@ -89,7 +89,7 @@ export function PokemonTypes({
 function PokemonType({ type }: { type: keyof typeof TYPE_EMOJI_MAP }) {
   const emoji = TYPE_EMOJI_MAP[type] || "❓";
   return (
-    <div className="rounded-full bg-gray-300 flex gap-2 items-center text-sm px-2 py-[2px]">
+    <div className="rounded-full bg-gray-200 flex gap-2 items-center text-sm px-2 py-[2px]">
       <span className="text-sm">{emoji}</span>
       <span className="capitalize">{type}</span>
     </div>

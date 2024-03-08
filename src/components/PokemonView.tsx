@@ -117,7 +117,7 @@ export function ViewPokemon({
             </div>
 
             <div className="w-full flex justify-center mt-auto">
-              <nav className="bg-gray-300 px-4 py-2 rounded-full text-black flex items-center gap-4 [&>*]:w-24 [&>*]:rounded-full [&>*]:text-center [&>*]:py-2">
+              <nav className="bg-gray-200 shadow-inner px-4 py-2 rounded-full text-black flex items-center gap-4 [&>*]:w-24 [&>*]:rounded-full [&>*]:text-center [&>*]:py-2">
                 <button
                   onClick={() => setCurrentTab("About")}
                   className={currentTab === "About" ? "bg-white" : ""}
