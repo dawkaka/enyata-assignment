@@ -1,8 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../constants";
 import { PokemonCard, PokemonTypes } from "./PokemonCard";
 import { useEffect, useState } from "react";
 import { getDominantColor } from "../utils";
+import { PokeType } from "../types";
 
 export function ViewPokemon({
   name,
@@ -17,6 +18,7 @@ export function ViewPokemon({
   const [dominantColor, setDominatColor] = useState<[number, number, number]>([
     0, 0, 0,
   ]);
+  const [types, setTypes] = useState<PokeType[]>([]);
   const { isPending, error, data } = useQuery({
     queryKey: ["view", name],
     queryFn: () =>
@@ -85,7 +87,10 @@ export function ViewPokemon({
             <h3 className="font-[ClashDisplay-Variable] text-5xl font-semibold mt-10 text-center capitalize">
               {name}
             </h3>
-            <PokemonTypes name={name} />
+            <PokemonTypes
+              name={name}
+              liftTypes={(types: PokeType[]) => setTypes(types)}
+            />
             <div className="bg-white text-center py-2 mt-8 shadow-3xl">
               <h3 className="font-semibold text-2xl">{currentTab}</h3>
             </div>
@@ -106,7 +111,9 @@ export function ViewPokemon({
               {!isPending && currentTab === "Stats" && (
                 <Stats stats={data.stats} />
               )}
-              {!isPending && currentTab === "Similar" && <Similar type="bug" />}
+              {!isPending && currentTab === "Similar" && (
+                <Similar types={types} current={name} />
+              )}
             </div>
 
             <div className="w-full flex justify-center mt-auto">
@@ -205,24 +212,50 @@ function Stats({ stats }: { stats: StatType[] }) {
   );
 }
 
-function Similar({ type }: { type: string }) {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["types", type],
-    queryFn: () => fetch(`${BASE_URL}/type/${type}`).then((res) => res.json()),
+function Similar({ types, current }: { current: string; types: PokeType[] }) {
+  const queries = types.map((type) => {
+    return {
+      queryKey: ["types", type],
+      queryFn: () =>
+        fetch(`${BASE_URL}/type/${type}`).then((res) => res.json()),
+    };
   });
-  if (error) {
-    return <p className="text-red-500">Something went wrong</p>;
-  }
-  if (isPending) {
+  const result = useQueries({ queries });
+  const [similar, setSimilar] = useState([]);
+  useEffect(() => {
+    console.log(result);
+    const values = result
+      .filter((r) => r.data)
+      .map((r) => r.data.pokemon.map((p: any) => p.pokemon));
+
+    if (values.length > 0) {
+      const baseArray = values[0];
+      // similar are pokemons with same types are current pokemon
+      const similar = baseArray.filter((item: any) =>
+        values.every(
+          (v) =>
+            v.map((v: any) => v.name).includes(item.name) &&
+            item.name !== current
+        )
+      );
+
+      setSimilar(similar);
+    }
+  }, [...result.map((r) => r.isPending)]);
+
+  if (result.some((result) => result.isPending)) {
     return <p>Loading...</p>;
+  }
+  if (result.every((r) => r.isError)) {
+    return <p className="text-red-500">Something went wrong</p>;
   }
   return (
     <div className="flex gap-2 px-10">
-      {data.pokemon
+      {similar
         .slice(0, 2)
-        .map(({ pokemon }: { pokemon: { name: string; url: string } }) => {
-          const id = pokemon.url.split("/")[6];
-          return <PokemonCard name={pokemon.name} key={pokemon.name} id={id} />;
+        .map(({ name, url }: { name: string; url: string }) => {
+          const id = url.split("/")[6];
+          return <PokemonCard name={name} key={id} id={id} />;
         })}
     </div>
   );

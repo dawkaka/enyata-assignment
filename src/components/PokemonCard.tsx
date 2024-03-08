@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { BASE_URL, TYPE_EMOJI_MAP } from "../constants";
+import { useEffect, useState } from "react";
+import { PokeType } from "../types";
 interface PokemonCardT {
   name: string;
   id: string;
@@ -46,12 +48,28 @@ export function PokemonCard({ name, id, handleView }: PokemonCardT) {
   );
 }
 
-export function PokemonTypes({ name }: { name: string }) {
+export function PokemonTypes({
+  name,
+  liftTypes,
+}: {
+  name: string;
+  liftTypes?: (s: PokeType[]) => void;
+}) {
   const { isPending, error, data } = useQuery({
     queryKey: ["pokemon_type", name],
     queryFn: () =>
       fetch(`${BASE_URL}/pokemon/${name}`).then((res) => res.json()),
   });
+  const [types, setTypes] = useState<(keyof typeof TYPE_EMOJI_MAP)[]>([]);
+
+  useEffect(() => {
+    const types = data.types.map((type: any) => type.type.name);
+    setTypes(types);
+    if (liftTypes) {
+      liftTypes(types);
+    }
+  }, [data]);
+
   if (error) {
     return <p className="text-red-500 text-sm">Something went wrong</p>;
   }
@@ -60,9 +78,7 @@ export function PokemonTypes({ name }: { name: string }) {
       {isPending ? (
         <p>Loading...</p>
       ) : (
-        data.types.map((type: any) => (
-          <PokemonType key={type.type.name} type={type.type.name} />
-        ))
+        types.map((type) => <PokemonType key={type} type={type} />)
       )}
     </div>
   );
