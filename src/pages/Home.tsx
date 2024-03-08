@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function Home() {
   return (
     <main className="relative h-full w-full flex flex-col">
-      <div className="absolute h-full w-full bg-white bg-[url('./noise.png')] opacity-[0.06]"></div>
+      <div className="absolute h-full w-full bg-white bg-[url('/noise.png')] opacity-[0.06]"></div>
       <div className="mx-auto w-max flex flex-col items-center gap-2 mt-16">
         <img src="./home_image.png" className="w-[382px]" alt="" />
         <h4 className="font-bold text-5xl font-[ClashDisplay-Variable]">
