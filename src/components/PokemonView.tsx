@@ -94,13 +94,7 @@ export function ViewPokemon({
             <div className="bg-white text-center py-2 mt-8 shadow-3xl">
               <h3 className="font-semibold text-2xl">{currentTab}</h3>
             </div>
-            <div
-              className="py-8"
-              style={{
-                background:
-                  "linear-gradient(to right, transparent, rgb(241 245 249), white, rgb(241 245 249), transparent)",
-              }}
-            >
+            <div>
               {currentTab === "About" && !isPending && (
                 <About
                   height={data.height}
@@ -155,7 +149,13 @@ function About({
   abilities: { ability: { name: string } }[];
 }) {
   return (
-    <div className="flex flex-col gap-3">
+    <div
+      className="flex flex-col gap-3 py-8"
+      style={{
+        background:
+          "linear-gradient(to right, transparent, rgb(241 245 249),white, rgb(241 245 249), transparent)",
+      }}
+    >
       <div className="flex items-start gap-4">
         <span className="w-1/2 text-right">Height</span>
         <span className="w-1/2 text-left font-semibold">{height * 10} cm</span>
@@ -189,7 +189,13 @@ interface StatType {
 
 function Stats({ stats }: { stats: StatType[] }) {
   return (
-    <div>
+    <div
+      className="py-8"
+      style={{
+        background:
+          "linear-gradient(to right, transparent, rgb(241 245 249),white, rgb(241 245 249), transparent)",
+      }}
+    >
       {stats.map((stat) => {
         return (
           <div className="flex items-start gap-4 px-2" key={stat.stat.name}>
@@ -249,9 +255,15 @@ function Similar({ types, current }: { current: string; types: PokeType[] }) {
     return <p className="text-red-500">Something went wrong</p>;
   }
   return (
-    <div className="flex gap-2 px-10">
+    <div
+      className="grid grid-cols-2 gap-2 px-10 bg-gray-200 py-8 y-4"
+      style={{
+        background:
+          "linear-gradient(to right, transparent, rgb(241 245 249), rgb(241 245 249), transparent)",
+      }}
+    >
       {similar
-        .slice(0, 2)
+        .slice(0, 4)
         .map(({ name, url }: { name: string; url: string }) => {
           const id = url.split("/")[6];
           return <PokemonCard name={name} key={id} id={id} />;

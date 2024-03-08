@@ -3,6 +3,7 @@ import { PokemonCard } from "../components/PokemonCard";
 import { ViewPokemon } from "../components/PokemonView";
 import { BASE_URL } from "../constants";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 type NumPerPage = 8 | 12 | 16 | 20;
 
@@ -44,12 +45,12 @@ export function ListAll() {
       <div className="absolute z-0 h-full w-full bg-[url('/noise.png')] opacity-[0.1]"></div>
       <header className="fixed top-0 left-0 w-full bg-white bg-opacity-70 z-50 shadow-lg">
         <nav className="flex items-center justify-between py-2 px-4 z-[999] overflow-y-visible h-20 max-w-[1300px] mx-auto">
-          <div className="flex gap-1 items-center z-50">
+          <Link to="/" className="flex gap-1 items-center z-50">
             <img src="./home_image.png" className="w-28 mt-6" />
             <h4 className="font-bold text-3xl hidden sm:block font-[ClashDisplay-Variable]">
               Poké <span className="text-[var(--primary-color)]">book</span>
             </h4>
-          </div>
+          </Link>
           <div className="relative">
             <div className="h-12 w-12 top-1/2 -translate-y-1/2 flex justify-center items-center absolute left-1">
               <svg
@@ -300,7 +301,7 @@ function ThemeModal({ closeModal }: { closeModal: () => void }) {
       >
         <div className="absolute top-0 left-0 z-0 h-full w-full bg-[url('/noise.png')] opacity-[0.06]"></div>
         <div className="absolute top-0 left-0  z-1 w-full h-full">
-          <div className="w-full bg-white px-4 py-2 text-2xl text-center font-semibold font-[ClashDisplay-Variable]">
+          <div className="w-full bg-white bg-opacity-60 px-4 py-2 text-2xl text-center font-semibold font-[ClashDisplay-Variable]">
             Choose Theme
           </div>
           <div className="w-full px-2 py-8 flex justify-center gap-4 [&>button]:h-14 [&>button]:w-14">
